@@ -46,6 +46,28 @@ class Userservice {
         }
     }
 
+async isAuthenticated(token){
+    try{
+        const response = this.verifyToken(token)
+        if(!response){
+            throw {error:'Invalid Token'}
+        }
+
+        const user= this.userRepository.getById(response.id);
+        if(!user){
+            throw {error:'No user with the corresponding token exists '}
+        }
+
+        return user.id;
+    }catch(error){
+        console.log('something went wrong in sign in process');
+        console.log(error);
+        throw error ;
+
+    }
+}
+
+
     
 
 
