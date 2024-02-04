@@ -31,6 +31,34 @@ const create = async (req, res) => {
 }
 
 
+const signIn = async(req,res)=>{
+
+    console.log(req.body.email)
+    try{
+        
+
+        const response = await userService.signIn(req.body.email,req.body.password);
+        console.log("Response is: ",response)
+        return res.status(200).json({
+            data: response, 
+            message: "Successfully signed in with the JWT Token",
+            err: {},
+            success: true
+        })
+
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            message: 'something went wrong',
+            data: {},
+            success: false,
+            err: error
+        });
+
+    }
+}
+
 module.exports = {
-    create
+    create,
+    signIn
 }
