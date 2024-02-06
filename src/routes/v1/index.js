@@ -28,4 +28,10 @@ router.get(
 
 )
 
+router.get(
+    '/isAdmin',
+    AuthValidatorMiddleware.validateIsAdminRequest,
+    UserController.isAdmin
+)
+
 module.exports=router;

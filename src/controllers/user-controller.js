@@ -3,14 +3,14 @@ const userService = new UserService();
 
 const create = async (req, res) => {
     try {
-        console.log(req.body);
+        //console.log(req.body);
 
         const response = await userService.create({
             email: req.body.email,
             password: req.body.password
         });
 
-        console.log(response);
+        //console.log(response);
 
 
         return res.status(201).json({
@@ -82,8 +82,30 @@ const isAuthenticated=async(req,res)=>{
     }
 }
 
+const isAdmin =async(req,res)=>{
+    try{
+        const response = await userService.isAdmin(req.body.id);
+        return res.status(200).json({
+            data:response ,
+            err:{},
+            success:true,
+            message:"sucessfully fetched whethet user is admin or not"
+        })
+
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            message: 'something went wrong',
+            data: {},
+            success: false,
+            err: error
+        });
+    }
+}
+
 module.exports = {
     create,
     signIn,
-    isAuthenticated
+    isAuthenticated,
+    isAdmin
 }
